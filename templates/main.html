@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+        .card{
+            width: 250px;
+            text-align: center;
+            display: inline-block;
+            margin: 50px 10px;
+            
+        }
+        .card img{
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+       
+    </style>
+<div class="text-center">
+    {% for product in products %}
+    {% if product.quantity > 1 %}
+    <div class="card">
+        <img
+          src="{{product.image.url}}"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title text-uppercase">{{product.name}}<span class="bg-info text-light ml-4 px-2" style="font-size: 11px; border-radius: 6px;" >{{product.quantity}} item</span></h5>
+          <a href="{% url 'main:detail' product.id %}" class="btn btn-danger btn-block">ADD TO BILL</a>
+        </div>
+      </div>
+      {% else %}
+      <div class="card">
+        <img  src="{% static 'images/out_of_stock.png' %}">
+        <div class="card-body">
+          <h5 class="card-title text-uppercase">{{product.name}}<span class="bg-danger text-light ml-4 px-2" style="font-size: 11px; border-radius: 6px;" >sold out</span></h5>
+          <a class="btn btn-light btn-block">ADD TO BILL</a>
+        </div>
+      </div>
+      {% endif %}
+    {% endfor %}
+<div>
+{% endblock %}

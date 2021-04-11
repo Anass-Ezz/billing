@@ -1,0 +1,117 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<style>
+  @media only screen and (max-width: 2000px) {
+
+
+  .varient {
+    display: inline-block;
+  }
+
+
+  [type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  /* IMAGE STYLES */
+  [type="radio"] + #varient {
+    cursor: pointer;
+  }
+  /* CHECKED STYLES */
+  [type="radio"]:checked + #varient {
+    outline: 2px solid rgb(187, 14, 14);
+  }
+  .varient_name_label {
+    display: block;
+    font-size: 13px;
+    margin-top: 2px;
+    color: #00dba0;
+    text-align: center;
+    border-bottom: #00dba0 solid 2px;
+  }
+  /*tooltip css*/
+}
+
+
+</style>
+
+<div >
+
+
+  <form method="POST" class="text-center" action="{% url 'main:add_item' %}">
+    <div class="row m-5">
+
+      {% csrf_token %}
+  
+      {% for varient_name in product.varientname_set.all %}
+      <div class="bg-light w-100 py-3 my-2">
+        <h5 class="mx-3 text-bold text-uppercase varient_name d-block">{{varient_name.name}} :</h5>
+        {% for var in varient_name.varient_set.all%}
+            {% if var.quantity < 1 %}
+              <div class="form-check form-check-inline">
+                <label>
+          
+                  <input
+                    type="radio"
+                    name="varient_{{forloop.parentloop.counter}}"
+                    value="{{varients.name}} : {{ var.name }}"
+                    required
+                    disabled
+                  />
+                  
+                  <div
+                    class=" text-dark text-uppercase font-weight-bold mb-3"
+                    id="varient"
+                    style="
+                      line-height: 30px;
+                      text-align: center;
+                      min-width: 70px;
+                      max-width: fit-content;
+                      height: 30px;
+                      background-color: white;
+                      text-decoration: line-through;
+                      background-color: gray;
+                    "
+                  >
+                     -{{var.name}}-
+                </div>
+                
+                {% else %}
+                <div class="form-check form-check-inline">
+                  <label>
+                    
+                    <input
+                    type="radio"
+                    name="varient_{{forloop.parentloop.counter}}"
+                    value="{{ var.id }}"
+                    required
+                    checked
+                    />
+                    
+                    <div
+                    class="bg-warning text-uppercase font-weight-bold mb-3 text-dark"
+                    id="varient"
+                    style="
+                        line-height: 30px;
+                        text-align: center;
+                        min-width: 70px;
+                        background-color: white;
+                      "
+                    >
+                       {{var.name}}
+                       <span class="bg-danger" style="padding: 2px; border-radius: 10px; ;">{{var.quantity}}</span>
+                  </div>
+              {% endif %}
+            </label>
+          </div>
+        {% endfor %}
+      </div>
+       {% endfor %}
+    </div>
+    <input type="hidden" name="product_id" value="{{ product.id }}" />
+    <button class="btn btn-danger">ADD TO BILL</button>
+  </form>
+</div>
+{% endblock %}
