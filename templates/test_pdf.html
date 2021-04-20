@@ -33,12 +33,12 @@
                 <img style="border-radius: 100%;" width="130" src="https://i.ibb.co/9sRLyWD/logo.jpg">
             </td>
             <td >
-                <h1>CLIENT : {{bill.charged_to.first_name}} {{bill.charged_to.last_name}}</h1>
+                <h1>CLIENT : {{bill.charged_to.first_name|upper}} {{bill.charged_to.last_name|upper}}</h1>
                 <h1>CLIENT ID : {{bill.charged_to.id}}</h1>
-                <h1>VILLE : {{bill.charged_to.city}}</h1>
+                <h1>VILLE : {{bill.charged_to.city|upper}}</h1>
                 <h1>TELE. : {{bill.charged_to.phone}}</h1>
                 {% if bill.charged_to.address %}
-                  <h1>ADDRESS. : {{bill.charged_to.address}}</h1>
+                  <h1>ADDRESS. : {{bill.charged_to.address|upper}}</h1>
                 {% endif %}
 
             </td>

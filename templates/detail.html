@@ -4,8 +4,12 @@
   @media only screen and (max-width: 2000px) {
 
 
-  .varient {
+  #varient {
     display: inline-block;
+    min-width: 200px;
+    min-height: 60px;
+    background-color: white;
+    border-left:solid 5px gray ;
   }
 
 
@@ -21,7 +25,7 @@
   }
   /* CHECKED STYLES */
   [type="radio"]:checked + #varient {
-    outline: 2px solid rgb(187, 14, 14);
+    border-left: 15px solid #28a745;
   }
   .varient_name_label {
     display: block;
@@ -61,47 +65,26 @@
                     disabled
                   />
                   
-                  <div
-                    class=" text-dark text-uppercase font-weight-bold mb-3"
-                    id="varient"
-                    style="
-                      line-height: 30px;
-                      text-align: center;
-                      min-width: 70px;
-                      max-width: fit-content;
-                      height: 30px;
-                      background-color: white;
-                      text-decoration: line-through;
-                      background-color: gray;
-                    "
-                  >
-                     -{{var.name}}-
+                <div class="bg-warning" id="varient">
+                  <p class="ml-2 text-primary text-left"><s>{{var.name}}</s></p>
+                  <h5 class="text-danger">OUT OF STOCK</h5>
                 </div>
                 
                 {% else %}
                 <div class="form-check form-check-inline">
                   <label>
-                    
                     <input
                     type="radio"
                     name="varient_{{forloop.parentloop.counter}}"
                     value="{{ var.id }}"
                     required
-                    checked
+                    
                     />
                     
-                    <div
-                    class="bg-warning text-uppercase font-weight-bold mb-3 text-dark"
-                    id="varient"
-                    style="
-                        line-height: 30px;
-                        text-align: center;
-                        min-width: 70px;
-                        background-color: white;
-                      "
-                    >
-                       {{var.name}}
-                       <span class="bg-danger" style="padding: 2px; border-radius: 10px; ;">{{var.quantity}}</span>
+                    
+                    <div class="" id="varient">
+                       <p class="ml-2 text-primary text-left">{{var.name}}</p>
+                       <h5 class="text-left ml-2" style="padding: 2px; border-radius: 10px; ;">{{var.quantity}} Item</h5>
                   </div>
               {% endif %}
             </label>

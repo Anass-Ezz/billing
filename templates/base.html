@@ -19,7 +19,7 @@
 
   <body>
     <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+<nav class="navbar navbar-expand-lg py-0 navbar-dark bg-dark">
   <!-- Navbar brand -->
   <a class="navbar-brand" href="{% url 'main:billing' %}">LIVEX</a>
   <!-- Collapse button -->
@@ -35,7 +35,7 @@
    
 
       <li class="nav-item dropdown multi-level-dropdown">
-        <a href="#" id="menu" data-toggle="dropdown" class="nav-link dropdown-toggle w-100">Dropdown</a>
+        <a href="#" id="menu" data-toggle="dropdown" class="nav-link dropdown-toggle w-100">Categories</a>
         <ul class="dropdown-menu mt-2 rounded-0 primary-color border-0 z-depth-1">
           <li class="dropdown-item dropdown-submenu p-0">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle text-white w-100">Click Me Too! </a>
@@ -76,16 +76,15 @@
         </ul>
       </li>
     </ul>
-    <!-- Links -->
-    <form class="form-inline">
-      <div class="md-form my-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-light">SEARCH</button>
-      </div>
-    </form>
   </div>
   <!-- Collapsible content -->
-    <a class="nav-link text-light h5" href="{% url 'main:bill_summary' %}"><i class="fas fa-2x mx-2 fa-file-invoice"></i></a>
+    <a class="nav-link text-light h5" href="{% url 'main:bill_summary' %}">
+      <i class="fas fa-2x mx-2 fa-file-invoice "></i>
+      <sup class="px-1 rounded-pill bg-light" style=" top: -26px; right: 10px;color: black;">
+         {{bill_length}}
+        
+      </sup>
+    </a>
 </nav>
 <!--/.Navbar-->    
     <div class="container-fluid">

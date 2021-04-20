@@ -39,32 +39,8 @@ class InlineVarientName(NestedStackedInline):
 class InLineBillItem(admin.TabularInline):
     search_fields = ('id',)
     model = Bill.items.through
-
-    # fields = ['product', 'reference', 'quantity', 'price', 'total']
-    readonly_fields = ['reference', 'quantity', 'price', 'total']
-    # fields = ['reference']
-    # readonly_fields = ['reference']
     extra = 0
 
-    def reference(self, obj):
-        id = int(str(obj.id))+1
-        bill_item = BillItem.objects.get(id=id)
-        return mark_safe(bill_item.choosed_varients.all()[0])
-
-    def quantity(self, obj):
-        id = int(str(obj.id))
-        bill_item = BillItem.objects.get(id=id)
-        return mark_safe(bill_item.quantity)
-
-    def price(self, obj):
-        id = int(str(obj.id))+1
-        bill_item = BillItem.objects.get(id=id)
-        return mark_safe(bill_item.item_price)
-
-    def total(self, obj):
-        id = int(str(obj.id))+1
-        bill_item = BillItem.objects.get(id=id)
-        return mark_safe(bill_item.item_total)
 
 # for BillItem iline
 
@@ -83,7 +59,7 @@ class BillAdmin(DjangoObjectActions, admin.ModelAdmin):
 
         context = {'bill': obj, 'data': timezone.now}
 
-        views.send_email_from_app(context)
+        views.send_email_from_app(request, context)
         # Create a Django response object, and specify content_type as pdf
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'filename="report.pdf"'

@@ -17,6 +17,9 @@ class Customer(models.Model):
     def __str__(self):
         return (self.first_name+' '+self.last_name)
 
+    def full_name(self):
+        return str((self.first_name+' '+self.last_name))
+
 
 class StockItem(models.Model):
     name = models.CharField(max_length=100)
@@ -26,6 +29,7 @@ class StockItem(models.Model):
         upload_to='images', default='images/default.png', null=True, blank=True)
     add_date = models.DateTimeField(default=timezone.now)
 
+    @property
     def quantity(self):
         total_quantity = 0
         varient_names = self.varientname_set.all()
@@ -40,7 +44,7 @@ class StockItem(models.Model):
 
 
 class Varient(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=15)
     quantity = models.IntegerField(default=0, blank=True)
     varient_name = models.ForeignKey(
         'VarientName', on_delete=models.CASCADE, null=True)

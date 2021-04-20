@@ -6,6 +6,7 @@ app_name = 'main'
 
 urlpatterns = [
     path('', views.billing, name='billing'),
+    path('login', views.login_view, name='login_view'),
     path('test_pdf', views.test_pdf, name='test_pdf'),
     path('bill_summary', views.bill_summary, name='bill_summary'),
     path('item_details/<int:id>/', views.detail, name='detail'),
@@ -22,4 +23,5 @@ urlpatterns = [
          views.set_client, name='set_client'),
     path('search_client', views.search_client, name='search_client'),
     path('add_client', views.add_client, name='add_client'),
+    #     path('product_search', views.product_search, name='product_search'),
 ]
