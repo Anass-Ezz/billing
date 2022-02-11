@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<style>
+
+    .form_container input{
+        width: 60%;
+        margin: 0 auto;
+    }
+    .form_container p{
+        width: 60%;
+        margin: 0 auto;
+        text-align: left;
+    }
+    img{
+        width: 100%;
+    }
+
+</style>
+
+<body>
+    <div class="row">
+
+        <div class="col-6">
+            <img src="{% static 'images/logo.png' %}">
+        </div>
+        <div class="col-6">
+
+            <div class="form_container text-center">
+                <form method="POST" action="{% url 'main:login_view' %}">
+                    {% csrf_token %}
+                    <h4 class="mt-3">LOGIN</h4>
+                    <p class="text-capitalize">Please enter your credentials to be able to use the application</p>
+                    <!-- Default input -->
+                    <input type="text" name="username" placeholder="Username" id="exampleForm2" class="form-control bg-light mt-4">
+                    <input type="password" name="password" placeholder="Password" id="exampleForm2" class="form-control bg-light mt-4">
+                    <button type="submit" class="btn btn-outline-danger btn-block mt-4" style="width: 60%; margin: 0 auto;">LOGIN</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+</body>
+</html>

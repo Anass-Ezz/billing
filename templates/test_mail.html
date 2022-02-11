@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif;">
+<style>
+
+	h5{
+		font-size: 15px;
+	}
+	#logo{
+	
+		object-fit: cover;
+		border: solid teal 4px;
+		border-radius: 100%;
+	}
+  	@media only screen and (max-width: 768px) {
+
+		h5{
+			font-size: 13px;
+		}
+		h4{
+			font-size: 10px;
+		}
+		#logo{
+			width: 60px;
+			height: 60px;
+	
+		}
+	
+	}
+
+</style>
+
+	<table style="width:100%; background-color: teal; color: white; font-size: 10px;">
+		<tr >
+			<td style="width: 50%;">
+				FACTURE ID : {{bill.id}}
+			</td>
+			<td style="width: 50%;text-align: end;">
+				<span style="margin-right: 10px;">BENGUERIR</span>  Le : {% now "SHORT_DATE_FORMAT" %}
+			</td>
+		</tr>
+	</table>
+	<div>
+		<table style="width: 100%;">
+			<tr>
+				<td style="text-align: center;">
+					<img id="logo" width="90px" style="object-fit: cover; border: solid teal 2px; border-radius: 100%;" height="90px" src="https://i.ibb.co/9sRLyWD/logo.jpg">
+					
+				</td>
+				<td style="text-align: left;">
+					<div style=" margin: 0 auto; width: fit-content;">
+						<p>CLIENT : {{bill.charged_to.first_name}} {{bill.charged_to.last_name}}</p>
+                		<p>CLIENT ID : {{bill.charged_to.id}}</p>
+                		<p>VILLE : {{bill.charged_to.city}}</p>
+                		<p>TELE. : {{bill.charged_to.phone}}</p>
+						{% if bill.charged_to.address %}
+							<p>ADDRESS. : {{bill.charged_to.address}}</p>
+						{% endif %}
+					</div>
+				</td>
+				
+			</tr>
+		</table>
+	</div>
+	<section>
+		<table class="table" style="width: 80%; margin: 0 auto; border-collapse: collapse; font-family: Arial, Helvetica, sans-serif;" >
+			<thead style="background-color: teal; color: white;">
+				<tr>
+					
+				
+					<td style="padding: 6px;">REFERENCE</td>
+					<td style="padding: 6px;">DESIGNATIOM</td>
+					<td style="padding: 6px;">QUANTITE</td>
+					<td style="padding: 6px;">PRIX</td>
+					<td style="padding: 6px;">TOTAL</td>
+					
+				</tr>
+			</thead>
+			<tbody style="text-align: center;">
+				{% for item in bill.items.all %}
+				
+				<tr style="border-bottom: solid 1px gray;">
+					{% for var in item.choosed_varients.all %}
+					<td style="padding: 10px;">{{var.name}}</td>
+					{% endfor %}
+					
+					<td style="padding: 10px;">{{item.product.name}}</td>
+					<td style="padding: 10px;">{{item.quantity}}</td>
+					<td style="padding: 10px;">{{item.item_price}} MAD</td>
+					<td style="padding: 10px;">{{item.item_total}} MAD</td>
+					
+				</tr>
+				{% endfor %}
+				
+			</tbody>
+		</table>
+	</section>
+	
+	
+	<div  style="width: 80%; margin: 0% auto;">
+		
+		<div >
+			<div>
+				<h5 style="display: inline-block; margin-right: 100px;">TOTAL</h5><h5 style="display: inline-block; float:right ;">{{bill.bill_total}}0 MAD</h5>
+			</div>
+			<div>
+				<h5 style="display: inline-block; margin-right: 100px;">REMISE</h5><h5 style="display: inline-block; float: right;">- {{bill.discount}} %</h5>
+			</div>
+			<div>
+				<h5 style="display: inline-block; margin-right: 100px;">
+					TOTAL FINALE
+					{% if not bill.charged %}<br>
+						<span style="color: red;">(NON SOLDÉ)</span>
+					{% endif %}
+				</h5><h5 style="background-color: #5cb85c; color: white; padding:0 10px ; display: inline-block; float: right;">{{bill.after_discount}} MAD</h5>
+			</div>
+		</div>
+	</div>
+	
+		<table style="width:100%; background-color: teal; color: white; font-size: 10px;">
+			<tr >
+				<td style="width: 50%;">
+					TELE : 052615212
+				</td>
+				<td style="width: 50%;text-align: end;">
+					<span style="margin-right: 10px;">Address :</span>
+				</td>
+			</tr>
+		</table>
+</body>
+</html>

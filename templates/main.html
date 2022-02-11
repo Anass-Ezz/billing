@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+        .card{
+            width: 250px;
+            text-align: center;
+            display: inline-block;
+            margin: 50px 10px;
+            
+        }
+        .card img{
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+        .out_of_stock {
+          position: relative;
+        }
+        .out_of_stock:before {
+          position: absolute;
+          content: "";
+          left: 0;
+          top: 50%;
+          right: 0;
+          border-top: 1px solid;
+          border-color: inherit;
+
+          -webkit-transform:rotate(-5deg);
+          -moz-transform:rotate(-5deg);
+          -ms-transform:rotate(-5deg);
+          -o-transform:rotate(-5deg);
+          transform:rotate(-5deg);
+        }
+       
+    </style>
+<div class="text-center">
+  <form action="{% url 'main:billing' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-outline text-center">
+      <h3 class="mt-4">Search For Product</h3>
+      <input type="text" id="form1" name="kw" placeholder="Search For Product" class="text-center d-inline-block mt-4 py-4 form-control w-75 rounded-pill" style="margin: 0 auto; border: solid black;" />
+      <button type="submit" class="btn btn-outline-dark d-inline-block rounded-pill py-3">Search</button>
+    </div>
+  </form>
+  {% if products %}
+    {% for product in products %}
+      {% if product.quantity >= 1 %}
+          <a href="{% url 'main:detail' product.id %}">
+            
+            <div class="card" style="border-left: solid 5px green;">
+              <img
+              src="{{product.image.url}}"
+              class="card-img-top"
+              alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title text-uppercase">{{product.name}}<span class="bg-info text-light ml-4 px-2" style="font-size: 11px; border-radius: 6px;" >{{product.quantity}} item</span></h5>
+              </div>
+            </div>
+          </a>
+          {% else %}
+          <div class="card" style="border-left: solid 5px red;">
+            <img src="{{product.image.url}}" class="card-img-top position-relative"/>
+            <img class="out_of_stock position-absolute" style="left: 0; opacity: .9;"  src="{% static 'images/out_of_stock_line.png' %}">
+            <div class="card-body">
+              <h5 class="card-title text-uppercase">{{product.name}}<span class="bg-danger text-light ml-4 px-2" style="font-size: 11px; border-radius: 6px;" >sold out</span></h5>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+      <div class="mt-5">
+        <h1 >
+          NO RESULTS
+        </h1>
+      </div>
+      {% endif %}
+
+      <div>
+        {% endblock %}
